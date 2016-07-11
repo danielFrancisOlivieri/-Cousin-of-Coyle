@@ -16,7 +16,7 @@ nouns[4] = new noun("real estate agent");
 nouns[5] = new noun("dude");
 nouns[6] = new noun("drug");
 nouns[7] = new noun("sword");
-nouns[8] = new noun("hero");
+nouns[8] = new noun("intern");
 nouns[9] = new noun("gun");
 
 
@@ -37,6 +37,7 @@ function verb(fps, pp, g) {
     //not all pluperfects use the pp (it's had written not had wrote)
     this.gerund = g;
     this.pastParticiple = pp;
+
    this.name = fps;
    
    this.futureTense = "will " + this.firstPersonSingular;
@@ -89,7 +90,7 @@ verbs[13] = new verb("jump", "jumped", "jumping");
 verbs[14] = new verb("feel", "felt", "feeling");
 verbs[15] = new verb("defenestrate", "defenestrated", "defenestrating");
 
-function shuffle (verbs) {
+function shuffle (words) {
   var currentIndex = verbs.length, temporaryValue, randomIndex;
 
   // While there remain elements to shuffle...
@@ -106,7 +107,14 @@ function shuffle (verbs) {
   }
 
 }
-
+//gets a number between 1 and 6
+function random1to6() {
+    var number = 10;
+    while (number > 6) {
+number = Math.floor((Math.random() * 10) + 1);
+}
+return number;
+}
 
 function shuffleAll () {
     shuffle(verbs);
@@ -126,7 +134,8 @@ function sentence (subj, verb, DO, tense, personAndNumber) {
     var verb1 = verb.thirdPersonSingular;
     var subject = subj.singular;
     var directObject = DO.singular;
-    console.log(verb1);
+    
+    if (tense === "present") {
     switch (personAndNumber) {
     case 1:
         verb1 = verb.firstPersonSingular;
@@ -155,7 +164,116 @@ function sentence (subj, verb, DO, tense, personAndNumber) {
         verb1 = verb.firstPersonSingular;
         subject = subj.plural;
     }
+    }
     
+//future
+    if(tense === "future") {
+        
+        verb1 = verb.futureTense;
+          switch (personAndNumber) {
+    case 1:
+       
+        article = "";
+        subject = "I";
+        break;
+    case 2:
+      
+       article = "";
+       subject = "You";
+        break;
+    case 3:
+       
+        break;
+    case 4:
+       
+        subject = "We";
+        article = "";
+        break;
+    case 5:
+       
+        article = "";
+       subject = "Ya'll";
+        break;
+    case 6:
+        
+        subject = subj.plural;
+    }
+        
+        
+    }
+    
+//imperfect
+     if(tense === "imperfect") {
+        
+       
+          switch (personAndNumber) {
+    case 1:
+       verb1 = "was " + verb.gerund;
+        article = "";
+        subject = "I";
+        break;
+    case 2:
+      verb1 = "were " + verb.gerund;
+       article = "";
+       subject = "You";
+        break;
+    case 3:
+        verb1 = "was " + verb.gerund;
+        break;
+    case 4:
+        verb1 = "were " + verb.gerund;
+        subject = "We";
+        article = "";
+        break;
+    case 5:
+        verb1 = "were " + verb.gerund;
+        article = "";
+       subject = "Ya'll";
+        break;
+    case 6:
+         verb1 = "were " + verb.gerund;
+        subject = subj.plural;
+    }
+    
+     }
+     //here
+     //past tense
+    if(tense === "past") {
+        verb1 =  verb.pastParticiple;
+       console.log("Yoip");
+          switch (personAndNumber) {
+              
+    case 1:
+       
+        article = "";
+        subject = "I";
+        break;
+    case 2:
+      
+       article = "";
+       subject = "You";
+        break;
+    case 3:
+        
+        break;
+    case 4:
+       
+        subject = "We";
+        article = "";
+        break;
+    case 5:
+       
+        article = "";
+       subject = "Ya'll";
+        break;
+    case 6:
+        
+        subject = subj.plural;
+    }
+        
+        
+    }
+        
     this.version1 = function () {
         
         //eventually capitalization will be a problem
@@ -163,10 +281,14 @@ function sentence (subj, verb, DO, tense, personAndNumber) {
         
         return aSentence;
     };
+    
+    
 }
-
+    
 shuffleAll();
-
-var aSentence = new sentence(nouns[0], verbs[8], nouns[1], "present",  6);
+var rando = random1to6();
+console.log(rando);
+var aSentence = new sentence(nouns[0], verbs[8], nouns[1], "past",  rando);
 
 console.log(aSentence.version1());
+
