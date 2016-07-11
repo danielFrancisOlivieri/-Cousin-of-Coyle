@@ -1,0 +1,19 @@
+function noun (sing) {
+    
+    this.singular = sing;
+    this.plural = sing + "s";
+    this.name = sing;
+}
+
+nouns = [];
+
+nouns[0] = new noun("cat");
+nouns[1] = new noun("dog");
+nouns[2] = new noun("house");
+nouns[3] = new noun("mouse");
+nouns[4] = new noun("real estate agent");
+nouns[5] = new noun("dude");
+nouns[6] = new noun("drug");
+nouns[7] = new noun("sword");
+nouns[8] = new noun("hero");
+nouns[9] = new noun("gun");
