@@ -72,7 +72,6 @@ var like = new verb("like", "liked", "liking");
 var eat = new verb("eat", "ate", "eating");
 var bite = new verb("bite", "bit", "biting");
 var grab = new verb("grab", "grabbed", "grabbing");
-
 verbs[0] = new verb("walk", "walked", "walking");
 verbs[1] = new verb("run", "ran", "running");
 verbs[2] = new verb("write", "wrote", "writing");
@@ -83,52 +82,91 @@ verbs[6] = new verb("grab", "grabbed", "grabbing");
 verbs[7] = new verb("fight", "fought", "fighting");
 verbs[8] = new verb("lick", "licked", "licking");
 verbs[9] = new verb("break", "broke", "breaking");
-verbs[10] = new verb("go", "went", "going");
-verbs[11] = new verb("do", "did", "doing");
+verbs[10] = new verb("escort", "escorted", "escorting");
+verbs[11] = new verb("want", "wanted", "wanting");
 verbs[12] = new verb("talk", "talked", "talking");
 verbs[13] = new verb("jump", "jumped", "jumping");
 verbs[14] = new verb("feel", "felt", "feeling");
 verbs[15] = new verb("defenestrate", "defenestrated", "defenestrating");
 
+function shuffle (verbs) {
+  var currentIndex = verbs.length, temporaryValue, randomIndex;
+
+  // While there remain elements to shuffle...
+  while (0 !== currentIndex) {
+
+    // Pick a remaining element...
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex -= 1;
+
+    // And swap it with the current element.
+    temporaryValue = verbs[currentIndex];
+    verbs[currentIndex] = verbs[randomIndex];
+    verbs[randomIndex] = temporaryValue;
+  }
+
+}
 
 
-function sentence (subject, verb, DO, tense, personAndNumber) {
+function shuffleAll () {
+    shuffle(verbs);
+    shuffle(nouns);
+}
+
+function sentence (subj, verb, DO, tense, personAndNumber) {
     
     this.subject = subject;
     this.verb = verb;
     this.DO = DO;
     this.tense = tense;
     this.personAndNumber = personAndNumber;
+    
+    //this part will eventually be its own object
+    var article = "The";
     var verb1 = verb.thirdPersonSingular;
+    var subject = subj.singular;
+    var directObject = DO.singular;
     console.log(verb1);
     switch (personAndNumber) {
     case 1:
         verb1 = verb.firstPersonSingular;
+        article = "";
+        subject = "I";
         break;
     case 2:
        verb1 = verb.firstPersonSingular;
+       article = "";
+       subject = "You";
         break;
     case 3:
         verb1 = verb.thirdPersonSingular;
         break;
     case 4:
         verb1 = verb.firstPersonSingular;
+        subject = "We";
+        article = "";
         break;
     case 5:
         verb1 = verb.firstPersonSingular;
+        article = "";
+       subject = "You";
         break;
     case 6:
         verb1 = verb.firstPersonSingular;
+        subject = subj.plural;
     }
     
     this.version1 = function () {
         
-        var aSentence = "The " + subject + " " + verb1 + " the " + DO + ".";
+        //eventually capitalization will be a problem
+        var aSentence =  article + " " + subject + " " + verb1 + " the " + directObject + ".";
         
         return aSentence;
     };
 }
 
-var aSentence = new sentence("cat", verbs[8], "dog", "present",  3);
+shuffleAll();
+
+var aSentence = new sentence(nouns[0], verbs[8], nouns[1], "present",  6);
 
 console.log(aSentence.version1());
