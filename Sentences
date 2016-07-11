@@ -1,0 +1,37 @@
+function sentence (subject, verb, DO, tense, personAndNumber) {
+    
+    this.subject = subject;
+    this.verb = verb;
+    this.DO = DO;
+    this.tense = tense;
+    this.personAndNumber = personAndNumber;
+    var verb1 = verb.thirdPersonSingular;
+    console.log(verb1);
+    switch (personAndNumber) {
+    case 1:
+        verb1 = verb.firstPersonSingular;
+        break;
+    case 2:
+       verb1 = verb.firstPersonSingular;
+        break;
+    case 3:
+        verb1 = verb.thirdPersonSingular;
+        break;
+    case 4:
+        verb1 = verb.firstPersonSingular;
+        break;
+    case 5:
+        verb1 = verb.firstPersonSingular;
+        break;
+    case 6:
+        verb1 = verb.firstPersonSingular;
+    }
+    
+    this.version1 = function () {
+        
+        var aSentence = "The " + subject + " " + verb1 + " the " + DO + ".";
+        
+        return aSentence;
+    };
+}
+
