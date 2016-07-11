@@ -2305,7 +2305,7 @@ for (i = 0; i < nouns.length; i++ ) {
     nouns[i] = new noun(nouns[i]);
     
 }
-
+//this is just to show off
 for (m = 120; m < 190; m++) {
     console.log(nouns[m].plural);
     
