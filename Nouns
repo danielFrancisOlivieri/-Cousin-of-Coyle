@@ -5,6 +5,15 @@ function noun (sing) {
     
     this.singular = sing;
     this.plural = sing + "s";
+    var lastLetter = sing.charAt(sing.length-1);
+    if (lastLetter === "s") {
+        this.plural = sing;
+    }
+    if (lastLetter === "x") {
+        
+        this.plural = sing + "es";
+    }
+    
     this.name = sing;
 }
 
@@ -12,6 +21,7 @@ function noun (sing) {
 // yes, we're going to be crude and load all the words into memory... it's really not so bad.
 // the list comes from this gem:
 // http://www.ashley-bovan.co.uk/words/partsofspeech.html
+//contains 2273 nouns (that's a lot)
 
 nouns = [
 "aardvark",
@@ -2296,8 +2306,8 @@ for (i = 0; i < nouns.length; i++ ) {
     
 }
 
-console.log(nouns.length);
-console.log(nouns[22].plural);
-
-
+for (m = 120; m < 190; m++) {
+    console.log(nouns[m].plural);
+    
+}
 
