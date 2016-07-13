@@ -1,0 +1,35 @@
+//gets random words
+  function createSubject (tense, personAndNumber){
+    var subject1Numb = randomIntFromInterval(0, nouns.length);
+    var subjectObject = nouns[subject1Numb];
+   var  subject1 = subjectConjugator(subjectObject, tense, personAndNumber);
+   return subject1;
+  }
+  
+  function getVerb (tense, personAndNumber) {
+      var verb1Numb = randomIntFromInterval(0, verbs.length);
+      var verbObject = verbs[verb1Numb];
+      var verb1 = verbConjugator(verbObject, tense, personAndNumber);
+      return verb1;
+  }
+  function getArticle (tense, personAndNumber) {
+      var article = articleConjugator(tense, personAndNumber);
+      return article;
+  }
+  
+  //gets random noun of random number
+  function getNoun () {
+      var subject1Numb = randomIntFromInterval(0, nouns.length);
+    var DOobject = nouns[subject1Numb];
+      var rando = Math.floor((Math.random() * 10) + 1); 
+  var directObject = DOobject.singular;
+    if (rando >5) {
+    directObject = DOobject.plural;
+      
+  }
+  return directObject;
+  }
+  function getConjunction (){
+   var conjunction1 = conjunctions[conjunction1Numb];
+   return conjunction1;
+  }
