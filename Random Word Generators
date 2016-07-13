@@ -1,5 +1,5 @@
 //gets random words
-  function createSubject (tense, personAndNumber){
+  function getSubject (tense, personAndNumber){
     var subject1Numb = randomIntFromInterval(0, nouns.length);
     var subjectObject = nouns[subject1Numb];
    var  subject1 = subjectConjugator(subjectObject, tense, personAndNumber);
