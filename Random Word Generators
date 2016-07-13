@@ -33,3 +33,9 @@
    var conjunction1 = conjunctions[conjunction1Numb];
    return conjunction1;
   }
+
+function getAdjective () {
+    var randomAdjectiveNumb = randomIntFromInterval(0, adjectives.length);
+    var adjective = adjectives[randomAdjectiveNumb];
+    return adjective;
+}
