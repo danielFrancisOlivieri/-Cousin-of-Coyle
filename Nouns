@@ -1,20 +1,25 @@
 
-
-
 function noun (sing) {
     
+    this.name = sing;
     this.singular = sing;
     this.plural = sing + "s";
+    
+    //can eventually replace these with "end with" to seem more professional
     var lastLetter = sing.charAt(sing.length-1);
-    if (lastLetter === "s") {
+    var penultimateLetter =  sing.charAt(sing.length-2);
+    if (sing.endsWith("s")) {
         this.plural = sing;
     }
     if (lastLetter === "x") {
         
         this.plural = sing + "es";
     }
+    if (sing.endsWith("fe")) {
+        this.plural = sing.replace("fe", "ves");
+    }
     
-    this.name = sing;
+    
 }
 
 
