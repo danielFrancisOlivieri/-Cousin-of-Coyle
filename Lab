@@ -7881,7 +7881,7 @@ function verbConjugator (verb, tense, personAndNumber) {
  function subjectConjugator (subject, tense, personAndNumber) {
     var verb1 = "";
     var article = "";
-    //console.log(subject.singular);
+
     var subject1 = subject.singular;
    if (tense === 1) {
     switch (personAndNumber) {
@@ -7893,23 +7893,23 @@ function verbConjugator (verb, tense, personAndNumber) {
     case 2:
        verb1 = verb.firstPersonSingular;
        article = "";
-       subject1 = "You";
+       subject1 = "you";
         break;
     case 3:
         verb1 = verb.thirdPersonSingular;
         break;
     case 4:
         verb1 = verb.firstPersonSingular;
-        subject1 = "We";
+        subject1 = "we";
         article = "";
         break;
     case 5:
         verb1 = verb.firstPersonSingular;
         article = "";
-       subject1 = "You";
+       subject1 = "you";
         break;
     case 6:
-        console.log("Hey");
+      
         verb1 = verb.firstPersonSingular;
         subject1 = subject.plural;
     }
@@ -7928,20 +7928,20 @@ function verbConjugator (verb, tense, personAndNumber) {
     case 2:
       
        article = "";
-       subject1 = "You";
+       subject1 = "you";
         break;
     case 3:
        
         break;
     case 4:
        
-        subject1 = "We";
+        subject1 = "we";
         article = "";
         break;
     case 5:
        
         article = "";
-       subject1 = "Ya'll";
+       subject1 = "ya'll";
         break;
     case 6:
         
@@ -7964,20 +7964,20 @@ function verbConjugator (verb, tense, personAndNumber) {
     case 2:
       verb1 = "were " + verb.gerund;
        article = "";
-       subject1 = "You";
+       subject1 = "you";
         break;
     case 3:
         verb1 = "was " + verb.gerund;
         break;
     case 4:
         verb1 = "were " + verb.gerund;
-        subject1 = "We";
+        subject1 = "we";
         article = "";
         break;
     case 5:
         verb1 = "were " + verb.gerund;
         article = "";
-       subject = "Ya'll";
+       subject = "ya'll";
         break;
     case 6:
          verb1 = "were " + verb.gerund;
@@ -8000,20 +8000,20 @@ function verbConjugator (verb, tense, personAndNumber) {
     case 2:
       
        article = "";
-       subject1 = "You";
+       subject1 = "you";
         break;
     case 3:
         
         break;
     case 4:
        
-        subject1 = "We";
+        subject1 = "we";
         article = "";
         break;
     case 5:
        
         article = "";
-       subject1 = "Ya'll";
+       subject1 = "ya'll";
         break;
     case 6:
         
@@ -8152,6 +8152,18 @@ allConjunctions = [
     return adjective;
 }
 
+//capitalize
+function titleCase(str) {
+   var splitStr = str.toLowerCase().split(' ');
+   for (var i = 0; i < splitStr.length; i++) {
+       // You do not need to check if i is larger than splitStr length, as your for does that for you
+       // Assign it back to the array
+       splitStr[i] = splitStr[i].charAt(0).toUpperCase() + splitStr[i].substring(1);     
+   }
+   // Directly return the joined string
+   return splitStr.join(' '); 
+}
+
 //sentence structures
 function structure1() {
  
@@ -8168,8 +8180,13 @@ var tense = randomIntFromInterval(1, 4);
 var verb1 = getVerb(tense, personAndNumber);
 var subject1 = getSubject(tense, personAndNumber);
 var directObject1 = getNoun();
-  
- this.sentence = article1 + " " + subject1 + " " + verb1 + ".";
+  if (article1 === "") {
+      this.sentence = titleCase(subject1) + " " + verb1 + ".";
+  }
+  else {
+      this.sentence = titleCase(article1) + " " + subject1 + " " + verb1 + ".";
+  }
+ 
   this.print = function() {
     console.log(this.sentence);
   };
@@ -8190,8 +8207,13 @@ var tense = randomIntFromInterval(1, 4);
 var verb1 = getVerb(tense, personAndNumber);
 var subject1 = getSubject(tense, personAndNumber);
 var directObject1 = getNoun();
-  
- this.sentence = article1 + " " + subject1 + " " + verb1 + " " + directObject1 + ".";
+  if (article1 === "") {
+      this.sentence = titleCase(subject1) + " " + verb1 + " " + directObject1 + ".";
+  }
+  else {
+      this.sentence = titleCase(article1) + " " + subject1 + " " + verb1 + " " + directObject1 + ".";
+  }
+ 
   this.print = function() {
     console.log(this.sentence);
   };
@@ -8221,7 +8243,12 @@ var verb2 = getVerb(tense, personAndNumber);
 var subject2 = getSubject(tense, personAndNumber);
 var directObject2 = getNoun();
    
- this.sentence = article1 + " " + subject1 + " " + verb1 + " " + directObject1 + ", " + conjunction1 + " "  + subject2 + " " + verb2 + " " + directObject2 + "." ;
+   if (article1 === "") {
+       this.sentence = this.sentence = titleCase(subject1) + " " + verb1 + " " + directObject1 + ".";
+   }
+   else {
+ this.sentence = titleCase(article1) + " " + subject1 + " " + verb1 + " " + directObject1 + ", " + conjunction1 + " "  + subject2 + " " + verb2 + " " + directObject2 + "." ;
+   }
   this.print = function() {
     console.log(this.sentence);
   };
@@ -8249,7 +8276,15 @@ var article2 = getArticle (tense, personAndNumber);
 var verb2 = getVerb(tense, personAndNumber);
 var subject2 = getSubject(tense, personAndNumber);
 var directObject2 = getNoun();
- this.sentence = article1 + " " + subject1 + ", " + conjunction1 + " " + subject2 + " " + verb2 + " " + directObject2 + ", " + verb1 + " " + directObject1 + ".";
+if (article1 === "") {
+    this.sentence = titleCase(subject1) + ", " + conjunction1 + " " + subject2 + " " + verb2 + " " + directObject2 + ", " + verb1 + " " + directObject1 + ".";
+
+}
+else {
+
+ this.sentence = titleCase(article1) + " " + subject1 + ", " + conjunction1 + " " + subject2 + " " + verb2 + " " + directObject2 + ", " + verb1 + " " + directObject1 + ".";
+}  
+  
   this.print = function() {
     console.log(this.sentence);
   };
