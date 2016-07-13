@@ -1,9 +1,3 @@
-
-
-
-
-
-
 // yes, we're going to be crude and load all the words into memory... it's really not so bad.
 // the list comes from this gem:
 // http://www.ashley-bovan.co.uk/words/partsofspeech.html
@@ -8024,6 +8018,101 @@ function verbConjugator (verb, tense, personAndNumber) {
     return subject1;
     }
 
+// conjunction arrays
+
+conjunctions = [
+    "though", 
+    "although",
+    "even though",
+    "while"
+
+    ];
+timeConjunctions = [
+    "after",
+    "as long as",
+    "as soon as",
+    "before",
+    "by the time",
+    "now that",
+    "once",
+    "since",
+    "until",
+    "when",
+    "when",
+    "whenever",
+    "while",
+    "because"
+    ];
+conditions = [
+    "if",
+    "only if",
+    "unless",
+    "provided that",
+    "even if",
+    "in case"
+    ];
+allConditions = [
+    "though", 
+    "although",
+    "even though",
+    "while",
+     "after",
+    "as long as",
+    "as soon as",
+    "before",
+    "by the time",
+    "now that",
+    "once",
+    "since",
+    "until",
+    "when",
+    "when",
+    "whenever",
+    "while",
+    "because",
+    "if",
+    "only if",
+    "unless",
+    "provided that",
+    "even if",
+    "in case"
+    ];
+ //gets random words
+  function getSubject (tense, personAndNumber){
+    var subject1Numb = randomIntFromInterval(0, nouns.length);
+    var subjectObject = nouns[subject1Numb];
+   var  subject1 = subjectConjugator(subjectObject, tense, personAndNumber);
+   return subject1;
+  }
+  
+  function getVerb (tense, personAndNumber) {
+      var verb1Numb = randomIntFromInterval(0, verbs.length);
+      var verbObject = verbs[verb1Numb];
+      var verb1 = verbConjugator(verbObject, tense, personAndNumber);
+      return verb1;
+  }
+  function getArticle (tense, personAndNumber) {
+      var article = articleConjugator(tense, personAndNumber);
+      return article;
+  }
+  
+  //gets random noun of random number
+  function getNoun () {
+      var subject1Numb = randomIntFromInterval(0, nouns.length);
+    var DOobject = nouns[subject1Numb];
+      var rando = Math.floor((Math.random() * 10) + 1); 
+  var directObject = DOobject.singular;
+    if (rando >5) {
+    directObject = DOobject.plural;
+      
+  }
+  return directObject;
+  }
+  function getConjunction (){
+   var conjunction1 = conjunctions[conjunction1Numb];
+   return conjunction1;
+  }
+
 //sentence structures
 function structure1() {
  
@@ -8035,19 +8124,13 @@ var tense = randomIntFromInterval(1, 4);
   this.complexity = 1;
   
   //gets random words
-    var subject1Numb = randomIntFromInterval(0, nouns.length);
-  var verb1Numb  = randomIntFromInterval(0, verbs.length);
-
-var subjectObject = nouns[subject1Numb];
-var verbObject = verbs[verb1Numb];
-console.log(verbObject);
- //this part will eventually be its own object
-    var article = articleConjugator(tense, personAndNumber);
-   var verb1 = verbConjugator(verbObject, tense, personAndNumber);
-   var  subject1 = subjectConjugator(subjectObject, tense, personAndNumber);
-    
+  //gets random words
+ var article1 = getArticle (tense, personAndNumber);
+var verb1 = getVerb(tense, personAndNumber);
+var subject1 = getSubject(tense, personAndNumber);
+var directObject1 = getNoun();
   
- this.sentence = article + " " + subject1 + " " + verb1 + ".";
+ this.sentence = article1 + " " + subject1 + " " + verb1 + ".";
   this.print = function() {
     console.log(this.sentence);
   };
@@ -8064,28 +8147,34 @@ var tense = randomIntFromInterval(1, 4);
 
   
   //gets random words
-    var subject1Numb = randomIntFromInterval(0, nouns.length);
-  var verb1Numb = randomIntFromInterval(0, verbs.length);
-  var DONumb = randomIntFromInterval(0, nouns.length);
-    //for testing
-  verb1Numb = 7;
+ var article1 = getArticle (tense, personAndNumber);
+var verb1 = getVerb(tense, personAndNumber);
+var subject1 = getSubject(tense, personAndNumber);
+var directObject1 = getNoun();
   
-var subjectObject = nouns[subject1Numb];
-var verbObject = verbs[verb1Numb];
-var DOobject = nouns[DONumb];
+ this.sentence = article1 + " " + subject1 + " " + verb1 + " " + directObject1 + ".";
+  this.print = function() {
+    console.log(this.sentence);
+  };
+}
 
- //this part will eventually be its own object
-    var article = articleConjugator(tense, personAndNumber);
-   var verb1 = verbConjugator(verbObject, tense, personAndNumber);
-   var  subject1 = subjectConjugator(subjectObject, tense, personAndNumber);
+//structure 3
+//compound sentence
+function structure3() {
+ this.complexity = 1; //for sorting structures later
+ 
+ //generates person and number
+ //hard numbers should be replaced with variables
+ var personAndNumber = randomIntFromInterval(1, 6);
+var tense = randomIntFromInterval(1, 4);
+var conjunction1Numb = randomIntFromInterval(0, conjunctions.length);
+
+var article1 = getArticle (tense, personAndNumber);
+var verb1 = getVerb(tense, personAndNumber);
+var subject1 = getSubject(tense, personAndNumber);
+var directObject1 = getNoun();
    
-    var rando = Math.floor((Math.random() * 10) + 1); 
-   directObject = DOobject.singular;
-    if (rando >5) {
-    directObject = DOobject.plural;
-   }
-  
- this.sentence = article + " " + subject1 + " " + verb1 + " " + directObject + ".";
+ this.sentence = article1 + " " + subject1 + " " + verb1 + " " + directObject1 + "<-- New. ";
   this.print = function() {
     console.log(this.sentence);
   };
@@ -8119,6 +8208,8 @@ var randomAdjective = randomIntFromInterval(0, adjectives.length);
 
 sentence1 = new structure1 ();
 sentence2 = new structure2();
+sentence3 = new structure3();
 
 sentence1.print();
 sentence2.print();
+sentence3.print();
