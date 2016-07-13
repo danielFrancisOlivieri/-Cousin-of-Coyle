@@ -7522,7 +7522,7 @@ function verb(fps, pp, g) {
     //these are other forms, don't know linguistic term for them 
     this.gerund = g;
     this.pastParticiple = pp;
-   this.futureTense = "will " + this.firstPersonSingular;
+   this.futureTense = "will " + fps;
    
    //This is for super irregulars "go", "do"
    this.alternateConstructor = function (i, fps, sps, tps, fpp, spp, tpp) {
@@ -8085,19 +8085,22 @@ allConjunctions = [
     "in case"
     ];
  //gets random words
+ 
+ //gets a noun with specific number 
   function getSubject (tense, personAndNumber){
     var subject1Numb = randomIntFromInterval(0, nouns.length);
     var subjectObject = nouns[subject1Numb];
    var  subject1 = subjectConjugator(subjectObject, tense, personAndNumber);
    return subject1;
   }
-  
+  // gets a verb from the array and conjugates it
   function getVerb (tense, personAndNumber) {
       var verb1Numb = randomIntFromInterval(0, verbs.length);
       var verbObject = verbs[verb1Numb];
       var verb1 = verbConjugator(verbObject, tense, personAndNumber);
       return verb1;
   }
+  // gets a definite article 
   function getArticle (tense, personAndNumber) {
       var article = articleConjugator(tense, personAndNumber);
       return article;
@@ -8106,25 +8109,41 @@ allConjunctions = [
   //gets random noun of random number
   function getNoun () {
       var subject1Numb = randomIntFromInterval(0, nouns.length);
-    var DOobject = nouns[subject1Numb];
+    var nounObject = nouns[subject1Numb];
       var rando = Math.floor((Math.random() * 10) + 1); 
-  var directObject = DOobject.singular;
+  var noun = nounObject.singular;
     if (rando >5) {
-    directObject = DOobject.plural;
-      
+    noun = nounObject.plural;
   }
+  return noun;
+  }
+  //random noun plural
+  function getPluralNoun () {
+      var subject1Numb = randomIntFromInterval(0, nouns.length);
+    var DOobject = nouns[subject1Numb];
+  var directObject = DOobject.singular;
   return directObject;
   }
+  //random noun singular
+  function getSingularNoun () {
+      var subject1Numb = randomIntFromInterval(0, nouns.length);
+    var DOobject = nouns[subject1Numb];
+  var directObject = DOobject.plural;
+  return directObject;
+  }
+  //random conjunction from short list
   function getConjunction (){
       var conjunction1Numb = randomIntFromInterval(0, conjunctions.length - 1);
    var conjunction1 = conjunctions[conjunction1Numb];
    return conjunction1;
   }
+  //random conjunction from a more risky and odd list
    function getAllConjunctions (){
       var conjunction1Numb = randomIntFromInterval(0, allConjunctions.length - 1);
    var conjunction1 = allConjunctions[conjunction1Numb];
    return conjunction1;
   }
+  //random adjective
   function getAdjective () {
     var randomAdjectiveNumb = randomIntFromInterval(0, adjectives.length);
     var adjective = adjectives[randomAdjectiveNumb];
@@ -8209,7 +8228,7 @@ var directObject2 = getNoun();
 //complex sentence with dependent clause in the middle
 function structure4() {
  this.complexity = 1; //for sorting structures later
- 
+ console.log("Quirk Tense: " + randomTense + " Person & number: " + randomPersonAndNumber );
  //generates person and number
  //hard numbers should be replaced with variables
  var personAndNumber = randomIntFromInterval(1, 6);
@@ -8219,16 +8238,16 @@ var tense = 3;
 var article1 = getArticle (tense, personAndNumber);
 var verb1 = getVerb(tense, personAndNumber);
 var subject1 = getSubject(tense, personAndNumber);
-var directObject1 = getNoun();
+var directObject1 = getPluralNoun();
 var conjunction1 = getAllConjunctions();
 
-  personAndNumber = randomIntFromInterval(1, 6);
+  personAndNumber = randomIntFromInterval(1, 3);
  tense = randomIntFromInterval(1, 4);
 var article2 = getArticle (tense, personAndNumber);
 var verb2 = getVerb(tense, personAndNumber);
 var subject2 = getSubject(tense, personAndNumber);
 var directObject2 = getNoun();
-   
+   console.log("Tense: " + randomTense + " Person & number: " + randomPersonAndNumber );
  this.sentence = article1 + " " + subject1 + ", " + conjunction1 + " " + subject2 + " " + verb2 + " " + directObject2 + ", " + verb1 + " " + directObject1 + ".";
   this.print = function() {
     console.log(this.sentence);
@@ -8251,20 +8270,21 @@ function randomIntFromInterval(min,max)
 }
 
 //turn these into functions?
+/**
 var randomNoun1 = randomIntFromInterval(0, nouns.length);
 var randomNoun2 = randomIntFromInterval(0, nouns.length);
 var randomPersonAndNumber = randomIntFromInterval(1, 6);
 var randomTense = randomIntFromInterval(1, 4);
 var randomVerb = randomIntFromInterval(0, 14);
+
 //so far unused
-
-
 
 //console.log("Tense: " + randomTense + " Person & number: " + randomPersonAndNumber );
 
 sentence1 = new structure1 ();
 sentence2 = new structure2();
 sentence3 = new structure3();
+*/
 sentence4 = new structure4();
 
 sentence4.print();
