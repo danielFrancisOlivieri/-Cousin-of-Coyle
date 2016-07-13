@@ -1,0 +1,16 @@
+// name, personality, look, opinion on other people, sexuality
+function randomCharacter(name) {
+    this.name = name;
+    this.personality = getAdjective();
+    this.look = getAdjective();
+    this.opinion1 = "Feels " + getAdjective() + " towards other people.";
+    this.opinion2 = getAdjective();
+    
+    this.print = function () {
+        console.log("Name: " + this.name);
+        console.log("Personality: " + this.personality);
+        console.log("Look: " + this.look);
+        console.log("Stance on other people: " + this.opinion1);
+        console.log("Sexuality: " + this.opinion2);
+    };
+}
