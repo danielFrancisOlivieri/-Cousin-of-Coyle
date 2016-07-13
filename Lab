@@ -8230,7 +8230,7 @@ var directObject2 = getNoun();
 //complex sentence with dependent clause in the middle
 function structure4() {
  this.complexity = 1; //for sorting structures later
- console.log("Quirk Tense: " + randomTense + " Person & number: " + randomPersonAndNumber );
+
  //generates person and number
  //hard numbers should be replaced with variables
  var personAndNumber = randomIntFromInterval(1, 6);
@@ -8249,7 +8249,6 @@ var article2 = getArticle (tense, personAndNumber);
 var verb2 = getVerb(tense, personAndNumber);
 var subject2 = getSubject(tense, personAndNumber);
 var directObject2 = getNoun();
-   console.log("Tense: " + randomTense + " Person & number: " + randomPersonAndNumber );
  this.sentence = article1 + " " + subject1 + ", " + conjunction1 + " " + subject2 + " " + verb2 + " " + directObject2 + ", " + verb1 + " " + directObject1 + ".";
   this.print = function() {
     console.log(this.sentence);
@@ -8272,21 +8271,12 @@ function randomIntFromInterval(min,max)
 }
 
 //turn these into functions?
-/**
-var randomNoun1 = randomIntFromInterval(0, nouns.length);
-var randomNoun2 = randomIntFromInterval(0, nouns.length);
-var randomPersonAndNumber = randomIntFromInterval(1, 6);
-var randomTense = randomIntFromInterval(1, 4);
-var randomVerb = randomIntFromInterval(0, 14);
-
-//so far unused
-
-//console.log("Tense: " + randomTense + " Person & number: " + randomPersonAndNumber );
 
 sentence1 = new structure1 ();
 sentence2 = new structure2();
 sentence3 = new structure3();
-*/
 sentence4 = new structure4();
 
+sentence3.print();
 sentence4.print();
+//add personal articles and indefinite articles
