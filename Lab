@@ -7544,7 +7544,7 @@ verbs = [];
 verbs[0] = new verb("walk", "walked", "walking");
 verbs[1] = new verb("run", "ran", "running");
 verbs[2] = new verb("write", "wrote", "writing");
-verbs[3] = new verb("like", "liked", "liking");
+verbs[3] = new verb("castrate", "castrated", "castrating");
 verbs[4] = new verb("eat", "ate", "eating");
 verbs[5] = new verb("bite", "bit", "biting");
 verbs[6] = new verb("grab", "grabbed", "grabbing");
@@ -7588,6 +7588,9 @@ function verbConjugator (verb, tense, personAndNumber) {
     var verb1 = verb.firstPersonSingular;
     var article = "";
     var subject = "";
+    if (tense === 0) {
+        verb1 = verb.infinitive;
+    }
    if (tense === 1) {
     switch (personAndNumber) {
     case 1:
@@ -8296,6 +8299,7 @@ else {
   };
 }
 /*
+  0 - infinitive
   1 - present
   2 - future
   3 - imperfect
@@ -8310,14 +8314,16 @@ function randomCharacter(name) {
     this.look = getAdjective();
     this.opinion1 = "Feels " + getAdjective() + " towards other people.";
     this.opinion2 = getAdjective();
-    
+    this.hobby1 = "Sometimes likes " + getVerb(0, 5) + " when feeling " + getAdjective();
     this.print = function () {
         console.log("Name: " + this.name);
         console.log("Personality: " + this.personality);
         console.log("Look: " + this.look);
         console.log("Stance on other people: " + this.opinion1);
         console.log("Sexuality: " + this.opinion2);
+        console.log("Hobby: " + this.hobby1);
     };
+    //hobby: {frequency} likes {infinitive} when he/she feels {adjective}
 }
 
 stacey = new randomCharacter("Stacey");
