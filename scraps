@@ -1,0 +1,72 @@
+//structure 2 not workin
+function structure2 (tense, personAndNumber) {
+    /*
+   this.subject = subject;
+    this.verb = verb;
+    this.DO = DO;
+    this.tense = tense;
+    this.personAndNumber = personAndNumber;
+    **/
+    this.complexity = 1;
+    
+     var subject1Numb = randomIntFromInterval(0, nouns.length);
+  var verb1Numb = randomIntFromInterval(0, verbs.length);
+  var DONumb = randomIntFromInterval(0, nouns.length);
+  
+var subjectObject = nouns[subject1Numb];
+var verbObject = verbs[verb1Numb];
+var DOobject = nouns[DOnumb];    
+    
+    //this part will eventually be its own object
+    var article = articleConjugator(tense, personAndNumber);
+    var verb1 = verbConjugator(verbObject, tense, personAndNumber);
+    var subject1 = subjectConjugator(subjectObject, tense, personAndNumber);
+    var directObject = DO.singular;
+    
+     var rando = Math.floor((Math.random() * 10) + 1); 
+   if (rando >5) {
+    directObject = DO.plural;
+   }
+   
+    
+ 
+        //article subject verb DO
+        
+        //eventually capitalization will be a problem
+        this.sentence =  article + " " + subject1 + " " + verb1 + " the " + directObject + ".";
+        
+       this.print = function() {
+    console.log(this.sentence);
+  };
+}
+//structure 3
+function structure2 (subject, verb, DO, tense, personAndNumber) {
+    
+   this.subject = subject;
+    this.verb = verb;
+    this.DO = DO;
+    this.tense = tense;
+    this.personAndNumber = personAndNumber;
+    
+    //this part will eventually be its own object
+    var article = articleConjugator(tense, personAndNumber);
+    var verb1 = verbConjugator(verb, tense, personAndNumber);
+    var subject1 = subjectConjugator(subject, tense, personAndNumber);
+   var rando = Math.floor((Math.random() * 10) + 1); 
+   var directObject = DO.singular;
+   if (rando >5) {
+    directObject = DO.plural;
+   }
+   
+ 
+        //article subject verb DO
+        
+        //eventually capitalization will be a problem
+        this.sentence =  article + " " + subject1 + " " + verb1 + " the " + directObject + ".";
+        
+       this.print = function() {
+    console.log(this.sentence);
+  };
+
+    
+}
