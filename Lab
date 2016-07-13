@@ -8085,8 +8085,14 @@ allConjunctions = [
     "even if",
     "in case"
     ];
- //gets random words
- 
+ //gets random numbers
+ function randomIntFromInterval(min,max)
+{
+    return Math.floor(Math.random()*(max-min+1)+min);
+}
+
+//section for random words
+
  //gets a noun with specific number 
   function getSubject (tense, personAndNumber){
     var subject1Numb = randomIntFromInterval(0, nouns.length);
@@ -8295,23 +8301,32 @@ else {
   3 - imperfect
   4 - past
   5 - pluperfect
-**/    
-// conjgates verbs
+**/
 
-// (subj, verb, DO, tense, personAndNumber)    
-
-function randomIntFromInterval(min,max)
-{
-    return Math.floor(Math.random()*(max-min+1)+min);
+// name, personality, look, opinion on other people, sexuality
+function randomCharacter(name) {
+    this.name = name;
+    this.personality = getAdjective();
+    this.look = getAdjective();
+    this.opinion1 = "Feels " + getAdjective() + " towards other people.";
+    this.opinion2 = getAdjective();
+    
+    this.print = function () {
+        console.log("Name: " + this.name);
+        console.log("Personality: " + this.personality);
+        console.log("Look: " + this.look);
+        console.log("Stance on other people: " + this.opinion1);
+        console.log("Sexuality: " + this.opinion2);
+    };
 }
 
-//turn these into functions?
+stacey = new randomCharacter("Stacey");
+stacey.print();
 
 sentence1 = new structure1 ();
 sentence2 = new structure2();
 sentence3 = new structure3();
 sentence4 = new structure4();
 
-sentence3.print();
-sentence4.print();
+
 //add personal articles and indefinite articles
