@@ -7481,18 +7481,25 @@ adjectives = ["abased",
 
 function noun (sing) {
     
+    this.name = sing;
     this.singular = sing;
     this.plural = sing + "s";
+    
+    //can eventually replace these with "end with" to seem more professional
     var lastLetter = sing.charAt(sing.length-1);
-    if (lastLetter === "s") {
+    var penultimateLetter =  sing.charAt(sing.length-2);
+    if (sing.endsWith("s")) {
         this.plural = sing;
     }
     if (lastLetter === "x") {
         
         this.plural = sing + "es";
     }
+    if (sing.endsWith("fe")) {
+        this.plural = sing.replace("fe", "ves");
+    }
     
-    this.name = sing;
+    
 }
 
 function verb(fps, pp, g) {
@@ -7873,7 +7880,7 @@ function verbConjugator (verb, tense, personAndNumber) {
  function subjectConjugator (subject, tense, personAndNumber) {
     var verb1 = "";
     var article = "";
-    console.log(subject.singular);
+    //console.log(subject.singular);
     var subject1 = subject.singular;
    if (tense === 1) {
     switch (personAndNumber) {
@@ -8051,7 +8058,7 @@ conditions = [
     "even if",
     "in case"
     ];
-allConditions = [
+allConjunctions = [
     "though", 
     "although",
     "even though",
@@ -8109,9 +8116,20 @@ allConditions = [
   return directObject;
   }
   function getConjunction (){
+      var conjunction1Numb = randomIntFromInterval(0, conjunctions.length - 1);
    var conjunction1 = conjunctions[conjunction1Numb];
    return conjunction1;
   }
+   function getAllConjunctions (){
+      var conjunction1Numb = randomIntFromInterval(0, allConjunctions.length - 1);
+   var conjunction1 = allConjunctions[conjunction1Numb];
+   return conjunction1;
+  }
+  function getAdjective () {
+    var randomAdjectiveNumb = randomIntFromInterval(0, adjectives.length);
+    var adjective = adjectives[randomAdjectiveNumb];
+    return adjective;
+}
 
 //sentence structures
 function structure1() {
@@ -8167,19 +8185,55 @@ function structure3() {
  //hard numbers should be replaced with variables
  var personAndNumber = randomIntFromInterval(1, 6);
 var tense = randomIntFromInterval(1, 4);
-var conjunction1Numb = randomIntFromInterval(0, conjunctions.length);
+//var conjunction1Numb = randomIntFromInterval(0, conjunctions.length);
 
 var article1 = getArticle (tense, personAndNumber);
 var verb1 = getVerb(tense, personAndNumber);
 var subject1 = getSubject(tense, personAndNumber);
 var directObject1 = getNoun();
+var conjunction1 = getConjunction();
+
+  personAndNumber = randomIntFromInterval(1, 6);
+ tense = randomIntFromInterval(1, 4);
+var article2 = getArticle (tense, personAndNumber);
+var verb2 = getVerb(tense, personAndNumber);
+var subject2 = getSubject(tense, personAndNumber);
+var directObject2 = getNoun();
    
- this.sentence = article1 + " " + subject1 + " " + verb1 + " " + directObject1 + "<-- New. ";
+ this.sentence = article1 + " " + subject1 + " " + verb1 + " " + directObject1 + ", " + conjunction1 + " "  + subject2 + " " + verb2 + " " + directObject2 + "." ;
   this.print = function() {
     console.log(this.sentence);
   };
 }
+//sentence structure 4
+//complex sentence with dependent clause in the middle
+function structure4() {
+ this.complexity = 1; //for sorting structures later
+ 
+ //generates person and number
+ //hard numbers should be replaced with variables
+ var personAndNumber = randomIntFromInterval(1, 6);
+var tense = 3;
+//var conjunction1Numb = randomIntFromInterval(0, conjunctions.length);
 
+var article1 = getArticle (tense, personAndNumber);
+var verb1 = getVerb(tense, personAndNumber);
+var subject1 = getSubject(tense, personAndNumber);
+var directObject1 = getNoun();
+var conjunction1 = getAllConjunctions();
+
+  personAndNumber = randomIntFromInterval(1, 6);
+ tense = randomIntFromInterval(1, 4);
+var article2 = getArticle (tense, personAndNumber);
+var verb2 = getVerb(tense, personAndNumber);
+var subject2 = getSubject(tense, personAndNumber);
+var directObject2 = getNoun();
+   
+ this.sentence = article1 + " " + subject1 + ", " + conjunction1 + " " + subject2 + " " + verb2 + " " + directObject2 + ", " + verb1 + " " + directObject1 + ".";
+  this.print = function() {
+    console.log(this.sentence);
+  };
+}
 /*
   1 - present
   2 - future
@@ -8203,13 +8257,14 @@ var randomPersonAndNumber = randomIntFromInterval(1, 6);
 var randomTense = randomIntFromInterval(1, 4);
 var randomVerb = randomIntFromInterval(0, 14);
 //so far unused
-var randomAdjective = randomIntFromInterval(0, adjectives.length);
+
+
+
 //console.log("Tense: " + randomTense + " Person & number: " + randomPersonAndNumber );
 
 sentence1 = new structure1 ();
 sentence2 = new structure2();
 sentence3 = new structure3();
+sentence4 = new structure4();
 
-sentence1.print();
-sentence2.print();
-sentence3.print();
+sentence4.print();
