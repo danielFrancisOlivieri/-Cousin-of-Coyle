@@ -1,3 +1,7 @@
+
+
+
+
 // yes, we're going to be crude and load all the words into memory... it's really not so bad.
 // the list comes from this gem:
 // http://www.ashley-bovan.co.uk/words/partsofspeech.html
@@ -7157,10 +7161,70 @@ adjectives = ["abased",
 "zonate",
 "zoning"];
 
+// conjunction arrays
 
+conjunctions = [
+    "though", 
+    "although",
+    "even though",
+    "while"
+
+    ];
+timeConjunctions = [
+    "after",
+    "as long as",
+    "as soon as",
+    "before",
+    "by the time",
+    "now that",
+    "once",
+    "since",
+    "until",
+    "when",
+    "when",
+    "whenever",
+    "while",
+    "because"
+    ];
+conditions = [
+    "if",
+    "only if",
+    "unless",
+    "provided that",
+    "even if",
+    "in case"
+    ];
+allConjunctions = [
+    "though", 
+    "although",
+    "even though",
+    "while",
+     "after",
+    "as long as",
+    "as soon as",
+    "before",
+    "by the time",
+    "now that",
+    "once",
+    "since",
+    "until",
+    "when",
+    "when",
+    "whenever",
+    "while",
+    "because",
+    "if",
+    "only if",
+    "unless",
+    "provided that",
+    "even if",
+    "in case"
+    ];
 
 
 // the line 
+
+
 
 function noun (sing) {
     
@@ -7181,9 +7245,18 @@ function noun (sing) {
     if (sing.endsWith("fe")) {
         this.plural = sing.replace("fe", "ves");
     }
-    
-    
+    // returns the conjugated verb
+    this.conjugate = function (personAndNumber) {
+        var theNoun = this.singular;
+      if(personAndNumber>3) {
+          theNoun = this.plural;
+         
+      }
+      return theNoun;
+};
+
 }
+
 
 function verb(fps, pp, g) {
     
@@ -7216,9 +7289,88 @@ function verb(fps, pp, g) {
     this.firstPersonPlural = fpp;
     this.secondPersonPlural = spp;
     this.thirdPersonPlural = tpp;
+   };
+ //returns conjugated verb
+ this.conjugate = function (tense, personAndNumber) {
+    
+    var verb1 = this.firstPersonSingular;
+ 
+    if (tense === 0) {
+        verb1 = this.infinitive;
+    }
+   if (tense === 1) {
+    switch (personAndNumber) {
+    case 1:
+        verb1 = this.firstPersonSingular;
+        break;
+    case 2:
+       verb1 = this.firstPersonSingular;
+     break;
+    case 3:
+        verb1 = this.thirdPersonSingular;
+        break;
+    case 4:
+        verb1 = this.firstPersonSingular;
+      break;
+    case 5:
+        verb1 = this.firstPersonSingular;
+      break;
+    case 6:
+        verb1 = this.firstPersonSingular;
+    }
+    }
+    
+//future
+    if(tense === 2) {
+        
+        verb1 = this.futureTense;
+    }
+    
+//imperfect
+     if(tense === 3) {
+        
+       
+          switch (personAndNumber) {
+    case 1:
+       verb1 = "was " + this.gerund;
+       
+        break;
+    case 2:
+      verb1 = "were " + this.gerund;
+     
+        break;
+    case 3:
+        verb1 = "was " + this.gerund;
+        break;
+    case 4:
+        verb1 = "were " + this.gerund;
+       
+        break;
+    case 5:
+        verb1 = "were " + this.gerund;
+     
+        break;
+    case 6:
+         verb1 = "were " + this.gerund;
    
-   this.name = fps;
-   
+    }
+    
+     }
+     //here
+     //past tense
+    if(tense === 4) {
+        verb1 =  this.pastParticiple;
+     
+    return verb1;
+    }
+    
+    //pluperfect
+    if (tense === 5) {
+        verb1 = "had " + this.pastParticiple;
+        
+        
+    }
+   return verb1;
   
 };
     
@@ -7241,6 +7393,14 @@ verbs[13] = new verb("jump", "jumped", "jumping");
 verbs[14] = new verb("feel", "felt", "feeling");
 verbs[15] = new verb("defenestrate", "defenestrated", "defenestrating");
 
+/*
+for (m = 0; m <6; m++) {
+for (i = 0; i <6; i++) {
+    var aVerb = verbs[15].conjugate(m, i);
+    console.log(aVerb);
+}
+}
+*/
 /*
 //gets a number between 1 and 6
 function random1to6() {
@@ -7564,220 +7724,16 @@ function verbConjugator (verb, tense, personAndNumber) {
     }
  //conjugates subjects
  
- function subjectConjugator (subject, tense, personAndNumber) {
-    var verb1 = "";
-    var article = "";
 
-    var subject1 = subject.singular;
-   if (tense === 1) {
-    switch (personAndNumber) {
-    case 1:
-        verb1 = verb.firstPersonSingular;
-        article = "";
-        subject1 = "I";
-        break;
-    case 2:
-       verb1 = verb.firstPersonSingular;
-       article = "";
-       subject1 = "you";
-        break;
-    case 3:
-        verb1 = verb.thirdPersonSingular;
-        break;
-    case 4:
-        verb1 = verb.firstPersonSingular;
-        subject1 = "we";
-        article = "";
-        break;
-    case 5:
-        verb1 = verb.firstPersonSingular;
-        article = "";
-       subject1 = "you";
-        break;
-    case 6:
-      
-        verb1 = verb.firstPersonSingular;
-        subject1 = subject.plural;
-    }
-    }
-    
-//future
-    if(tense === 2) {
-        
-        verb1 = verb.futureTense;
-          switch (personAndNumber) {
-    case 1:
-       
-        article = "";
-        subject1 = "I";
-        break;
-    case 2:
-      
-       article = "";
-       subject1 = "you";
-        break;
-    case 3:
-       
-        break;
-    case 4:
-       
-        subject1 = "we";
-        article = "";
-        break;
-    case 5:
-       
-        article = "";
-       subject1 = "ya'll";
-        break;
-    case 6:
-        
-        subject1 = subject.plural;
-    }
-        
-        
-    }
-    
-//imperfect
-     if(tense === 3) {
-        
-       
-          switch (personAndNumber) {
-    case 1:
-       verb1 = "was " + verb.gerund;
-        article = "";
-        subject1 = "I";
-        break;
-    case 2:
-      verb1 = "were " + verb.gerund;
-       article = "";
-       subject1 = "you";
-        break;
-    case 3:
-        verb1 = "was " + verb.gerund;
-        break;
-    case 4:
-        verb1 = "were " + verb.gerund;
-        subject1 = "we";
-        article = "";
-        break;
-    case 5:
-        verb1 = "were " + verb.gerund;
-        article = "";
-       subject = "ya'll";
-        break;
-    case 6:
-         verb1 = "were " + verb.gerund;
-        subject1 = subject.plural;
-    }
-    
-     }
-     //here
-     //past tense
-    if(tense === 4) {
-        verb1 =  verb.pastParticiple;
-     
-          switch (personAndNumber) {
-              
-    case 1:
-       
-        article = "";
-        subject1 = "I";
-        break;
-    case 2:
-      
-       article = "";
-       subject1 = "you";
-        break;
-    case 3:
-        
-        break;
-    case 4:
-       
-        subject1 = "we";
-        article = "";
-        break;
-    case 5:
-       
-        article = "";
-       subject1 = "ya'll";
-        break;
-    case 6:
-        
-        subject = subject.plural;
-    }
-        
-        
-    }
-  
-    return subject1;
-    }
 
-// conjunction arrays
 
-conjunctions = [
-    "though", 
-    "although",
-    "even though",
-    "while"
-
-    ];
-timeConjunctions = [
-    "after",
-    "as long as",
-    "as soon as",
-    "before",
-    "by the time",
-    "now that",
-    "once",
-    "since",
-    "until",
-    "when",
-    "when",
-    "whenever",
-    "while",
-    "because"
-    ];
-conditions = [
-    "if",
-    "only if",
-    "unless",
-    "provided that",
-    "even if",
-    "in case"
-    ];
-allConjunctions = [
-    "though", 
-    "although",
-    "even though",
-    "while",
-     "after",
-    "as long as",
-    "as soon as",
-    "before",
-    "by the time",
-    "now that",
-    "once",
-    "since",
-    "until",
-    "when",
-    "when",
-    "whenever",
-    "while",
-    "because",
-    "if",
-    "only if",
-    "unless",
-    "provided that",
-    "even if",
-    "in case"
-    ];
  //gets random numbers
  function randomIntFromInterval(min,max)
 {
     return Math.floor(Math.random()*(max-min+1)+min);
 }
 
-//section for random words
+//section for generating random sentence elements
 
  //gets a noun with specific number 
   function getSubject (tense, personAndNumber){
@@ -8036,10 +7992,11 @@ function randomCharacter(name) {
 
 eliza = new randomCharacter("Eliza");
 john = new randomCharacter("John");
+/*
 eliza.print();
 console.log();
 john.print();
-
+*/
 var sentFact = new randomSentenceFactory();
 
 sentence1 = new structure1 ();
@@ -8047,5 +8004,54 @@ sentence2 = new structure2();
 sentence3 = new structure3();
 sentence4 = sentFact.createSentence(1);
 
-sentence4.print();
+
 //add personal articles and indefinite articles
+
+
+
+/*
+//sentence structure new model
+function structure1() {
+ 
+ this.complexity = 1;
+ 
+ this.personAndNumber = randomIntFromInterval(1, 6);
+ this.tense = randomIntFromInterval(1, 4);
+ this.subject1 = "ox";
+this.subject1 = "orc";
+  //gets random words
+  //gets random words
+  this.article1 = "The"; //getArticle (tense, personAndNumber);
+ this.verb1 = "castrates"; // getVerb(tense, personAndNumber);
+ // getSubject(tense, personAndNumber);
+ 
+ this.getSentence = function () {
+  if (this.article1 === "") {
+      this.sentence = titleCase(this.subject1) + " " + this.verb1 + ".";
+  }
+  else {
+      this.sentence = titleCase(this.article1) + " " + this.subject1 + " " + this.verb1 + ".";
+  }
+ };
+  this.print = function() {
+      //this.getSentence();
+    console.log(this.sentence);
+  };
+}
+*/
+
+//content object
+//what the content object adds is universal applicability
+//it will be one object that holds enough variables to handle the most complex sentences
+
+var content = function () {
+   // this.tense = getTense();
+    
+};
+var newCon = new content();
+//console.log(newCon.tense);
+
+var mainFrame = new structure1();
+mainFrame.print();
+//onsole.log(mainFrame.complexity);
+//mainFrame.print();
