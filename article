@@ -1,0 +1,30 @@
+
+
+
+//get article
+
+var getArticle = function (def) {
+    // 0 - indefinite
+    // 1 - definite
+   var article = "the";
+   
+   if (def === 1) {
+       
+       
+   }
+    
+    
+};
+
+
+// an or A
+
+function anOrA(word) {
+  var firstLetter = word.charAt(0);
+  var anOrAVar = "a";
+  if ((firstLetter == "a") || (firstLetter == "i") || (firstLetter == "o") || (firstLetter == "e") || (firstLetter == "u") || (firstLetter == "y")) 
+  {
+    anOrAVar = "an";
+  }
+  return anOrAVar;
+}
