@@ -1,0 +1,396 @@
+conjunctions = [
+    "though", 
+    "although",
+    "even though",
+    "while"
+
+    ];
+conditionals = [
+    "if",
+    "only if",
+    "unless",
+    "provided that",
+    "even if",
+    "in case"
+    ];
+
+adjectives = ["abased",
+"abject",
+"able",
+"abloom",
+"ablush",
+"abreast",
+"abridged",
+"abroad",
+"abrupt",
+"abscessed",
+"absolved",
+"absorbed",
+"absurd",
+"abused",
+"abuzz",
+"accrued",
+"accurst",
+"aching",
+"acrid"];
+
+
+nouns = [
+"aardvark",
+"abyssinian",
+"accelerator",
+"accordion",
+"account",
+"accountant",
+"acknowledgment",
+"acoustic",
+"acrylic",
+"act",
+"action",
+"activity",
+"actor",
+"actress",
+"adapter",
+"addition",
+"address",
+"adjustment",
+"adult"
+];
+function noun (sing) {
+    
+    this.name = sing;
+    this.singular = sing;
+    this.plural = sing + "s";
+    
+    //can eventually replace these with "end with" to seem more professional
+    var lastLetter = sing.charAt(sing.length-1);
+    var penultimateLetter =  sing.charAt(sing.length-2);
+    if (sing.endsWith("s")) {
+        this.plural = sing;
+    }
+    if (lastLetter === "x") {
+        
+        this.plural = sing + "es";
+    }
+    if (sing.endsWith("fe")) {
+        this.plural = sing.replace("fe", "ves");
+    }
+    this.conjugate = function (personAndNumber) {
+        var theNoun = this.singular;
+      if(personAndNumber>3) {
+          theNoun = this.plural;
+         
+      }
+      return theNoun;
+};
+
+}
+
+//verbs
+function verb(fps, pp, g) {
+    
+    //present tense forms
+    this.infinitive = "to " + fps;
+    this.firstPersonSingular = fps;
+    this.secondPersonSingular = fps;
+    this.thirdPersonSingular = fps + "s";
+    this.firstPersonPlural = fps;
+    this.secondPersonPlural = fps;
+    this.thirdPersonPlural = fps;
+    
+    //the name to refer to the word (I realize it isn't that useful)
+    this.name = fps;
+    
+    //yes, I'm awful and don't know the difference between gerunds and gerundives
+    //not all pluperfects use the pp (it's "had written" not "had wrote")
+    
+    //these are other forms, don't know linguistic term for them 
+    this.gerund = g;
+    this.pastParticiple = pp;
+   this.futureTense = "will " + fps;
+   
+   //This is for super irregulars "go", "do"
+   this.alternateConstructor = function (i, fps, sps, tps, fpp, spp, tpp) {
+    this.infinitive = i;
+    this.firstPersonSingular = fps;
+    this.secondPersonSingular = sps;
+    this.thirdPersonSingular = tps;
+    this.firstPersonPlural = fpp;
+    this.secondPersonPlural = spp;
+    this.thirdPersonPlural = tpp;
+   };
+ //returns conjugated verb
+ this.conjugate = function (tense, personAndNumber) {
+    
+    var verb1 = this.firstPersonSingular;
+ 
+    if (tense === 0) {
+        verb1 = this.infinitive;
+    }
+   if (tense === 1) {
+    switch (personAndNumber) {
+    case 1:
+        verb1 = this.firstPersonSingular;
+        break;
+    case 2:
+       verb1 = this.firstPersonSingular;
+     break;
+    case 3:
+        verb1 = this.thirdPersonSingular;
+        break;
+    case 4:
+        verb1 = this.firstPersonSingular;
+      break;
+    case 5:
+        verb1 = this.firstPersonSingular;
+      break;
+    case 6:
+        verb1 = this.firstPersonSingular;
+    }
+    }
+    
+//future
+    if(tense === 2) {
+        
+        verb1 = this.futureTense;
+    }
+    
+//imperfect
+     if(tense === 3) {
+        
+       
+          switch (personAndNumber) {
+    case 1:
+       verb1 = "was " + this.gerund;
+       
+        break;
+    case 2:
+      verb1 = "were " + this.gerund;
+     
+        break;
+    case 3:
+        verb1 = "was " + this.gerund;
+        break;
+    case 4:
+        verb1 = "were " + this.gerund;
+       
+        break;
+    case 5:
+        verb1 = "were " + this.gerund;
+     
+        break;
+    case 6:
+         verb1 = "were " + this.gerund;
+   
+    }
+    
+     }
+     //here
+     //past tense
+    if(tense === 4) {
+        verb1 =  this.pastParticiple;
+     
+    return verb1;
+    }
+    
+    //pluperfect
+    if (tense === 5) {
+        verb1 = "had " + this.pastParticiple;
+        
+        
+    }
+   return verb1;
+  
+};
+    
+}
+verbs = [];
+verbs[0] = new verb("walk", "walked", "walking");
+verbs[1] = new verb("run", "ran", "running");
+verbs[2] = new verb("write", "wrote", "writing");
+verbs[3] = new verb("castrate", "castrated", "castrating");
+verbs[4] = new verb("eat", "ate", "eating");
+verbs[5] = new verb("bite", "bit", "biting");
+verbs[6] = new verb("grab", "grabbed", "grabbing");
+verbs[7] = new verb("fight", "fought", "fighting");
+verbs[8] = new verb("lick", "licked", "licking");
+verbs[9] = new verb("break", "broke", "breaking");
+verbs[10] = new verb("escort", "escorted", "escorting");
+verbs[11] = new verb("want", "wanted", "wanting");
+verbs[12] = new verb("talk", "talked", "talking");
+verbs[13] = new verb("jump", "jumped", "jumping");
+verbs[14] = new verb("feel", "felt", "feeling");
+verbs[15] = new verb("defenestrate", "defenestrated", "defenestrating");
+
+/*
+for (m = 0; m <6; m++) {
+for (i = 0; i <6; i++) {
+    var aVerb = verbs[15].conjugate(m, i);
+    console.log(aVerb);
+}
+}
+*/
+function titleCase(str) {
+   var splitStr = str.toLowerCase().split(' ');
+   for (var i = 0; i < splitStr.length; i++) {
+       // You do not need to check if i is larger than splitStr length, as your for does that for you
+       // Assign it back to the array
+       splitStr[i] = splitStr[i].charAt(0).toUpperCase() + splitStr[i].substring(1);     
+   }
+   // Directly return the joined string
+   return splitStr.join(' '); 
+}
+
+//random
+function randomIntFromInterval(min,max)
+{
+    return Math.floor(Math.random()*(max-min+1)+min);
+}
+/*
+What do I want from conjugation?
+To have all words conjugated before they leave
+ways to deal with conjugation
+
+1 - have them all conjugated immediatly 
+*/
+//content
+var content = function () {
+    
+    this.tense1 = randomIntFromInterval(1,5);
+    this.personAndNumber1 = randomIntFromInterval(1,6);
+    this.article1 = "the";
+    //nouns
+    this.noun1 = new noun( nouns[randomIntFromInterval(1, nouns.length-1)]).conjugate(this.personAndNumber1);
+    this.noun2 = new noun( nouns[randomIntFromInterval(1, nouns.length-1)]).conjugate(this.personAndNumber1);
+    this.noun3 = new noun( nouns[randomIntFromInterval(1, nouns.length-1)]).conjugate(this.personAndNumber1);
+    this.noun4 = new noun( nouns[randomIntFromInterval(1, nouns.length-1)]).conjugate(this.personAndNumber1);
+    this.noun5 = new noun( nouns[randomIntFromInterval(1, nouns.length-1)]).conjugate(this.personAndNumber1);
+    this.noun6 = new noun( nouns[randomIntFromInterval(1, nouns.length-1)]).conjugate(this.personAndNumber1);
+    this.noun7 = new noun( nouns[randomIntFromInterval(1, nouns.length-1)]).conjugate(this.personAndNumber1);
+    //verbs
+    this.verb1 = verbs[randomIntFromInterval(1, verbs.length-1)].conjugate(this.tense1, this.personAndNumber1);
+    this.verb2 = verbs[randomIntFromInterval(1, verbs.length-1)].conjugate(this.tense1, this.personAndNumber1);
+    this.verb3 = verbs[randomIntFromInterval(1, verbs.length-1)].conjugate(this.tense1, this.personAndNumber1);
+    //adjectives
+    this.adjective1 = adjectives[randomIntFromInterval(1, adjectives.length-1)];
+    this.adjective2 = adjectives[randomIntFromInterval(1, adjectives.length-1)];
+    this.adjective3 = adjectives[randomIntFromInterval(1, adjectives.length-1)];
+    //conjunctions
+    this.conjunction1 = conjunctions[randomIntFromInterval(1, conjunctions.length-1)];
+    this.conjunction2 = conjunctions[randomIntFromInterval(1, conjunctions.length-1)];
+    this.conjunction3 = conjunctions[randomIntFromInterval(1, conjunctions.length-1)];
+    //conditionals
+    this.conditional1 = conditionals[randomIntFromInterval(1, conditionals.length-1)];
+    this.conditional2 = conditionals[randomIntFromInterval(1, conditionals.length-1)];
+    this.conditional3 = conditionals[randomIntFromInterval(1, conditionals.length-1)];
+};
+
+var newCon = new content();
+
+function structure1(article1, subject1, verb1) {
+ 
+ this.complexity = 1;
+
+  if (article1 === "") {
+      this.sentence = titleCase(subject1) + " " + verb1 + ".";
+  }
+  else {
+      this.sentence = titleCase(article1) + " " + subject1 + " " + verb1 + ".";
+  }
+ 
+  this.print = function() {
+    console.log(this.sentence);
+  };
+}
+
+//structure 2
+function structure2(article1, subject1, verb1, directObject1) {
+ 
+ this.complexity = 1; //for sorting structures later
+
+  if (article1 === "") {
+      this.sentence = titleCase(subject1) + " " + verb1 + " " + directObject1 + ".";
+  }
+  else {
+      this.sentence = titleCase(article1) + " " + subject1 + " " + verb1 + " " + directObject1 + ".";
+  }
+ 
+  this.print = function() {
+    console.log(this.sentence);
+  };
+}
+//structure 3
+function structure3(article1, subject1, conjunction1, subject2, verb2, directObject2, verb1, directObject1) {
+ this.complexity = 2; //for sorting structures later
+
+//var conjunction1Numb = randomIntFromInterval(0, conjunctions.length);
+
+if (article1 === "") {
+    this.sentence = titleCase(subject1) + ", " + conjunction1 + " " + subject2 + " " + verb2 + " " + directObject2 + ", " + verb1 + " " + directObject1 + ".";
+
+}
+else {
+
+ this.sentence = titleCase(article1) + " " + subject1 + ", " + conjunction1 + " " + subject2 + " " + verb2 + " " + directObject2 + ", " + verb1 + " " + directObject1 + ".";
+}  
+  
+  this.print = function() {
+    console.log(this.sentence);
+  };
+}
+//structure 4
+//And birds ate rocks, so I decided to do a break.
+//conj noun verb DO, conditional subject infinitive article DO.
+function structure4(conjunction1, noun1, verb1, noun2,  noun3, verb2, article1, noun4) {
+ this.complexity = 2; //for sorting structures later
+
+//var conjunction1Numb = randomIntFromInterval(0, conjunctions.length);
+
+
+    this.sentence = titleCase(conjunction1) + " " + noun1 + " " + verb1 + " " + noun2 + ", "  + noun3 + " " + verb2 + " " + article1 + " " + noun4 + ".";
+
+
+  
+  this.print = function() {
+    console.log(this.sentence);
+  };
+}
+
+function randomSentenceFactory() {}
+
+randomSentenceFactory.prototype.structureClass = structure1;
+
+randomSentenceFactory.prototype.createSentence = function (options, object) {
+    
+    switch(options) {
+        case 1: 
+            sentence = new structure1(object.article1, object.noun1, object.verb1);
+            break;
+        case 2:
+            sentence = new structure2(object.article1, object.noun1, object.verb1, object.noun2);
+            break;
+        case 3:
+            sentence = new structure3(object.article1, object.noun1, object.conjunction1, object.noun2, object.verb2, object.noun3, object.verb1, object.noun4);
+            break;
+        case 4:
+            sentence = new structure4(object.conjunction1,object.noun1, object.verb1, object.noun2, object.noun3, object.verb2, object.article1, object.noun4);
+
+        
+    }
+    return sentence;
+    
+};
+
+var theObject = new content();
+
+var sentFact = new randomSentenceFactory();
+
+var rando = randomIntFromInterval(1, 3);
+rando = 4;
+var sent = sentFact.createSentence(rando, theObject);
+var sent1 = sentFact.createSentence(rando, theObject);
+
+//var sent = new structure3(newCon.article1, newCon.noun1, newCon.verb1, newCon.noun2);
+
+sent.print();
+sent1.print();
