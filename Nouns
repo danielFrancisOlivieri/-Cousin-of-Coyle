@@ -1,4 +1,3 @@
-
 function noun (sing) {
     
     this.name = sing;
@@ -18,8 +17,15 @@ function noun (sing) {
     if (sing.endsWith("fe")) {
         this.plural = sing.replace("fe", "ves");
     }
-    
-    
+    this.conjugate = function (personAndNumber) {
+        var theNoun = this.singular;
+      if(personAndNumber>3) {
+          theNoun = this.plural;
+         
+      }
+      return theNoun;
+};
+
 }
 
 
