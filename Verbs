@@ -1,5 +1,6 @@
 function verb(fps, pp, g) {
     
+    //present tense forms
     this.infinitive = "to " + fps;
     this.firstPersonSingular = fps;
     this.secondPersonSingular = fps;
@@ -8,25 +9,18 @@ function verb(fps, pp, g) {
     this.secondPersonPlural = fps;
     this.thirdPersonPlural = fps;
     
-    
-  // this.forPP = pp;
+    //the name to refer to the word (I realize it isn't that useful)
+    this.name = fps;
     
     //yes, I'm awful and don't know the difference between gerunds and gerundives
-    //not all pluperfects use the pp (it's had written not had wrote)
+    //not all pluperfects use the pp (it's "had written" not "had wrote")
+    
+    //these are other forms, don't know linguistic term for them 
     this.gerund = g;
     this.pastParticiple = pp;
-   this.name = fps;
+   this.futureTense = "will " + fps;
    
-   this.futureTense = "will " + this.firstPersonSingular;
-   
-   /*
-   this.getPluperfect = function (word) {
-       
-           this.forPP = word;
-   };
-   **/
-   
-   this.pluperfect = "had " + pp;
+   //This is for super irregulars "go", "do"
    this.alternateConstructor = function (i, fps, sps, tps, fpp, spp, tpp) {
     this.infinitive = i;
     this.firstPersonSingular = fps;
@@ -35,35 +29,115 @@ function verb(fps, pp, g) {
     this.firstPersonPlural = fpp;
     this.secondPersonPlural = spp;
     this.thirdPersonPlural = tpp;
+   };
+ //returns conjugated verb
+ this.conjugate = function (tense, personAndNumber) {
+    
+    var verb1 = this.firstPersonSingular;
+ 
+    if (tense === 0) {
+        verb1 = this.infinitive;
+    }
+   if (tense === 1) {
+    switch (personAndNumber) {
+    case 1:
+        verb1 = this.firstPersonSingular;
+        break;
+    case 2:
+       verb1 = this.firstPersonSingular;
+     break;
+    case 3:
+        verb1 = this.thirdPersonSingular;
+        break;
+    case 4:
+        verb1 = this.firstPersonSingular;
+      break;
+    case 5:
+        verb1 = this.firstPersonSingular;
+      break;
+    case 6:
+        verb1 = this.firstPersonSingular;
+    }
+    }
+    
+//future
+    if(tense === 2) {
+        
+        verb1 = this.futureTense;
+    }
+    
+//imperfect
+     if(tense === 3) {
+        
+       
+          switch (personAndNumber) {
+    case 1:
+       verb1 = "was " + this.gerund;
+       
+        break;
+    case 2:
+      verb1 = "were " + this.gerund;
+     
+        break;
+    case 3:
+        verb1 = "was " + this.gerund;
+        break;
+    case 4:
+        verb1 = "were " + this.gerund;
+       
+        break;
+    case 5:
+        verb1 = "were " + this.gerund;
+     
+        break;
+    case 6:
+         verb1 = "were " + this.gerund;
    
-   this.name = fps;
-   
+    }
+    
+     }
+     //here
+     //past tense
+    if(tense === 4) {
+        verb1 =  this.pastParticiple;
+     
+    return verb1;
+    }
+    
+    //pluperfect
+    if (tense === 5) {
+        verb1 = "had " + this.pastParticiple;
+        
+        
+    }
+   return verb1;
   
 };
     
 }
 verbs = [];
-var walk = new verb("to walk", "walked", "walking");
-var run = new verb("run", "ran", "running");
-var write = new verb("write", "wrote", "writing");
-var like = new verb("like", "liked", "liking");
-var eat = new verb("eat", "ate", "eating");
-var bite = new verb("bite", "bit", "biting");
-var grab = new verb("grab", "grabbed", "grabbing");
-
 verbs[0] = new verb("walk", "walked", "walking");
 verbs[1] = new verb("run", "ran", "running");
 verbs[2] = new verb("write", "wrote", "writing");
-verbs[3] = new verb("like", "liked", "liking");
+verbs[3] = new verb("castrate", "castrated", "castrating");
 verbs[4] = new verb("eat", "ate", "eating");
 verbs[5] = new verb("bite", "bit", "biting");
 verbs[6] = new verb("grab", "grabbed", "grabbing");
 verbs[7] = new verb("fight", "fought", "fighting");
 verbs[8] = new verb("lick", "licked", "licking");
 verbs[9] = new verb("break", "broke", "breaking");
-verbs[10] = new verb("go", "went", "going");
-verbs[11] = new verb("do", "did", "doing");
+verbs[10] = new verb("escort", "escorted", "escorting");
+verbs[11] = new verb("want", "wanted", "wanting");
 verbs[12] = new verb("talk", "talked", "talking");
 verbs[13] = new verb("jump", "jumped", "jumping");
 verbs[14] = new verb("feel", "felt", "feeling");
 verbs[15] = new verb("defenestrate", "defenestrated", "defenestrating");
+
+/*
+for (m = 0; m <6; m++) {
+for (i = 0; i <6; i++) {
+    var aVerb = verbs[15].conjugate(m, i);
+    console.log(aVerb);
+}
+}
+*/
