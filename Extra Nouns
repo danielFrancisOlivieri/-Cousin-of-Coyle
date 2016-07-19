@@ -2,7 +2,7 @@
 // the list comes from this gem:
 // http://www.ashley-bovan.co.uk/words/partsofspeech.html
 
-module.exports = ["aardvark",
+nouns = ["aardvark",
 "abyssinian",
 "accelerator",
 "accordion",
