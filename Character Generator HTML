@@ -1,17 +1,116 @@
 <!DOCTYPE html>
+<!-- Makes quotes -->
 <html>
-<title>W3.CSS</title>
+<title>CG</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+	
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
 <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<script src="characterGenerator.js"> </script>;
 <link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
 <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
+
 <style>
-body,h1,h4,h5,h6 {font-family: "Lato", sans-serif}
-.w3-navbar,h1,h2,h3,button {font-family: "Montserrat", sans-serif}
+.onoffswitch {
+    position: relative; width: 90px;
+    -webkit-user-select:none; -moz-user-select:none; -ms-user-select: none;
+	margin: auto;
+	text-align: left;
+	position: relative;
+margin-top: 15px;
+
+
+}
+.onoffswitch-checkbox {
+    display: none;
+}
+.onoffswitch-label {
+    display: block; overflow: hidden; cursor: pointer;
+    border: 2px solid #999999; border-radius: 20px;
+}
+.onoffswitch-inner {
+    display: block; width: 200%; margin-left: -100%;
+    transition: margin 0.3s ease-in 0s;
+}
+.onoffswitch-inner:before, .onoffswitch-inner:after {
+    display: block; float: left; width: 50%; height: 30px; padding: 0; line-height: 30px;
+    font-size: 14px; color: white; font-family: Trebuchet, Arial, sans-serif; font-weight: bold;
+    box-sizing: border-box;
+}
+.onoffswitch-inner:before {
+    content: "ON";
+    padding-left: 10px;
+    background-color: #34A7C1; color: #FFFFFF;
+}
+.onoffswitch-inner:after {
+    content: "OFF";
+    padding-right: 10px;
+    background-color: #EEEEEE; color: #999999;
+    text-align: right;
+}
+.onoffswitch-switch {
+    display: block; width: 32px; margin: 0.5px;
+    background: #FFFFFF;
+    position: absolute; top: 0; bottom: 0;
+    right: 56px;
+    border: 2px solid #999999; border-radius: 20px;
+    transition: all 0.3s ease-in 0s; 
+}
+.onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-inner {
+    margin-left: 0;
+}
+.onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-switch {
+    right: 0px; 
+}
+
+#fistLabel {
+padding: 30px;
+postion: relative;
+}
+
+
+
+body,h1,h4,h5,h6 {font-family: "Lato", sans-serif
+align: center;
+}
+
 .fa-pencil-square-o,.fa-code {font-size:260px}
+#btndiv {
+display: block;
+border-color: black;
+margin-top: 15px;
+}
+button {
+position: relative;
+display: block;
+ border-radius: 23%;
+ text-align: center;
+
+clear: left;
+  margin: auto;
+    width: 8%;
+    border: 3px solid #73AD21;
+    padding: 10px;
+}
+p {
+display: inline-block;
+}
+#synDiv {
+border: solid;
+border-color: black;
+
+}
+#radioButtons {
+display: block;
+}
+.words {
+text-decoration: none;
+}
+.disappear{
+display: none;
+}
 </style>
 <body>
 
@@ -20,11 +119,11 @@ body,h1,h4,h5,h6 {font-family: "Lato", sans-serif}
   <li class="w3-hide-medium w3-hide-large w3-opennav w3-right">
     <a class="w3-padding-large w3-hover-white w3-large w3-red" href="javascript:void(0);" onclick="myFunction()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a>
   </li>
-  <li><a href="#" class="w3-padding-large w3-white">Character Maker</a></li>
-  <li class="w3-hide-small"><a href="#" class="w3-padding-large w3-hover-white">Link 1</a></li>
-  <li class="w3-hide-small"><a href="#" class="w3-padding-large w3-hover-white">Link 2</a></li>
-  <li class="w3-hide-small"><a href="#" class="w3-padding-large w3-hover-white">Link 3</a></li>
-  <li class="w3-hide-small"><a href="#" class="w3-padding-large w3-hover-white">Link 4</a></li>
+  <li><a href="file:///C:/Users/dfoli_000/Desktop/AllCSFiles/Coyle.html" class="w3-padding-large w3-white">Home</a></li>
+  <li class="w3-hide-small"><a href="file:///C:/Users/dfoli_000/Desktop/AllCSFiles/Coyle2.html" class="w3-padding-large w3-hover-white">I</a></li>
+  <li class="w3-hide-small"><a href="#" class="w3-padding-large w3-hover-white">II</a></li>
+  <li class="w3-hide-small"><a href="#" class="w3-padding-large w3-hover-white">III</a></li>
+  <li class="w3-hide-small"><a href="#" class="w3-padding-large w3-hover-white">IV</a></li>
 </ul>
 
 <!-- Navbar on small screens -->
@@ -37,65 +136,125 @@ body,h1,h4,h5,h6 {font-family: "Lato", sans-serif}
   </ul>
 </div>
 
+  <script>
+  var adjective = getAdjective();
+	var person  = newChar();
+	var sex = "on";
+
+ $(document).ready(function(){
+
+ $("#sexSwitch").click(function() {
+ 
+	if  ($(this).val() === "on") {
+      $(this).val("off");
+      console.log(this);
+	   $("#sexuality").addClass("disappear");
+	   $("#word6").addClass("disappear");
+	   $("#firstLabel").text("Mormon");
+   }
+	else  {
+      $(this).val("on");
+      console.log(this);
+	  $("#sexuality").removeClass("disappear");
+	   $("#word6").removeClass("disappear");
+	   $("#firstLabel").text("Libertine");
+   };
+ });
+ 
+		
+		$("button").click(function(){
+		var name = getName();
+		var adj1 = getAdjective();
+		var adj2 = getAdjective();
+		var adj3 = getAdjective();
+		var adj4 = getAdjective();
+		var adj5 = getAdjective();
+        $("#word1").text(name);
+		$("#word1").attr({
+            "href" : "http://www.dictionary.com/browse/" +name,
+            "title" : "word"
+        });
+		
+		 $("#word2").text(adj1);
+		 $("#word2").attr({
+            "href" : "http://www.dictionary.com/browse/" +adj1,
+            "title" : "word"
+        });
+		
+		$("#word3").text(adj2);
+		 $("#word3").attr({
+            "href" : "http://www.dictionary.com/browse/" +adj2,
+            "title" : "word"
+        });
+		
+		$("#word4").text(adj3);
+		 $("#word4").attr({
+            "href" : "http://www.dictionary.com/browse/" +adj3,
+            "title" : "word"
+        });
+		
+		$("#word5").text(adj4);
+		 $("#word5").attr({
+            "href" : "http://www.dictionary.com/browse/" +adj4,
+            "title" : "word"
+        });
+		
+		$("#word6").text(adj5);
+		 $("#word6").attr({
+            "href" : "http://www.dictionary.com/browse/" +adj5,
+            "title" : "word"
+        });
+		
+    });
+		
+});
+
+	
+    </script>
+
 <!-- Header -->
 <div class="w3-container w3-red w3-center w3-padding-128">
-  <h1 class="w3-margin w3-jumbo">Character Maker</h1>
-  <p class="w3-xlarge">Produces People Without Sperm or Egg </p>
-<textarea rows="5" cols="50">
-Gatsby believed in the green light, the orgastic future that year by year recedes before you. It eludes us now, but that is no matter, tomorrow you will run faster, stretch out your arms farther.
-</textarea>
+  <h1 id = "#title" class="w3-margin w3-jumbo"> Fictive </h1>
+<div id="synDiv">
+<p>Name: </p> <p> <a class = "words" id = "word1"> Stellan </a> </p> <br>
+<p>Personality: </p> <p> <a class = "words" id = "word2">anguine </a> </p> <br>
+<p>Look: </p> <p> <a class = "words" id = "word3"> hissing </a> </p> <br>
+<p>Aesthetic: </p> <p> <a class = "words" id = "word4"> coarsest </a> </p> <br>
+<p>Stance on other people: Feels </p> <p> <a class = "words" id = "word5"> undocked </a> </p> <p> towards other people.</p><br>
+<p id = "sexuality">Sexuality: </p> <p> <a class = "words" id = "word6"> cheery </a> </p> <br>
+<!-- <p>Hobby: Sometimes likes to write when feeling super</p><br> -->
+
 </div>
 
-<!-- First Grid -->
-<div class="w3-row-padding w3-padding-64 w3-container">
-  <div class="w3-content">
-    <div class="w3-twothird">
-      <h1>What This Does</h1>
-      <h5 class="w3-padding-32">Generates original ideas for characters</h5>
-
-      <p class="w3-text-grey">Cousin of Coyle is produced (passive voice) by Daniel Olivieri.</p>
-    </div>
-
-    <div class="w3-third w3-center">
-    <!--  <i class="fa fa-anchor w3-padding-64 w3-text-red"></i> -->
-	  <i class="fa fa-pencil-square-o w3-padding-64 w3-text-red" id = "chevron"></i>
-    </div>
-  </div>
+    <br>
+	<div id="btndiv">
+<button class="w3-btn w3-padding-16 w3-large w3-margin-top"  >More</button>
+<br>
 </div>
-
-<!-- Second Grid -->
-<div class="w3-row-padding w3-light-grey w3-padding-64 w3-container">
-  <div class="w3-content">
-    <div class="w3-third w3-center">
-      <i class="fa fa-code w3-padding-64 w3-text-red w3-margin-right"></i>
-    </div>
-
-    <div class="w3-twothird">
-      <h1>Cousin of Coyle</h1>
-      <h5 class="w3-padding-32">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</h5>
-
-      <p class="w3-text-grey">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Excepteur sint
-        occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
-        laboris nisi ut aliquip ex ea commodo consequat.</p>
-    </div>
-  </div>
+<!-- gratuitous switch -->
+<div id= "switch1">
+<p style = "display: inline-block" id = "firstLabel"> Libertine </p>
+      <!--  <label id = "fistLabel" for="sexSwitch" >Mormonism</label> -->
+<div class="onoffswitch">
+    <input value ="on" type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="sexSwitch" checked>
+    <label class="onoffswitch-label" for="sexSwitch">
+        <span class="onoffswitch-inner"></span>
+        <span class="onoffswitch-switch"></span>
+    </label>
 </div>
-
-<div class="w3-container w3-black w3-center w3-opacity w3-padding-64">
-    <h1 class="w3-margin w3-xlarge">"Computers are like old testament God, lots of rules and no mercy"</h1>
-	<h3 style="align: left"> - Joseph Campbell </h3>
+</div>
 </div>
 
 <!-- Footer -->
 <footer class="w3-container w3-padding-64 w3-center w3-opacity">
   <div class="w3-xlarge w3-padding-32">
-   <a href="#" class="w3-hover-text-indigo"><i class="fa fa-facebook-official"></i></a>
-   <a href="#" class="w3-hover-text-red"><i class="fa fa-pinterest-p"></i></a>
-   <a href="#" class="w3-hover-text-light-blue"><i class="fa fa-twitter"></i></a>
-   <a href="#" class="w3-hover-text-grey"><i class="fa fa-flickr"></i></a>
-   <a href="#" class="w3-hover-text-indigo"><i class="fa fa-linkedin"></i></a>
+   <a href="#" class="w3-hover-text-indigo"><i class="fa fa-cubes"></i></a>
+   <a href="#" class="w3-hover-text-red"><i class="fa fa-database"></i></a>
+   <a href="#" class="w3-hover-text-light-blue"><i class="fa fa-plug"></i></a>
+   <a href="#" class="w3-hover-text-grey"><i class="fa fa-tasks"></i></a>
+   <a href="#" class="w3-hover-text-indigo"><i class="fa fa-tint"></i></a>
  </div>
- <p>Powered by <a href="http://www.w3schools.com/w3css/default.asp" target="_blank">w3.css</a></p>
+ <p>Powered by <a href="http://www.w3schools.com/w3css/default.asp" target="_blank">Thanks to w3 and such </a></p>
 </footer>
 
 <script>
