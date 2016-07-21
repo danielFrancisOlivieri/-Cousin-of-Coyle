@@ -1,0 +1,36 @@
+//array of DFW words
+//they are not just odd words, they must be specifically associated with him in some way
+
+
+dfwNouns = [
+"seraglio",
+"shillelagh",
+"strigil",
+"cerise",
+"venery",
+"abeyant",
+"rimple",
+"sciolism",
+"tarantism",
+"satyromaniac",
+"excursus",
+"ort",
+"kohl",
+
+]
+
+
+dfwAdjectives = [
+"ineluctable",
+"kyphotic",
+"epicene",
+"strabysmic",
+"ebubblient",
+"febrile",
+"sudoriferous",
+"inguinal",
+"actaeonizing",
+"parturient",
+"minim",
+"benthic"
+]
