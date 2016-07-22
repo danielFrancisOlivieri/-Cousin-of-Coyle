@@ -20,9 +20,8 @@
 	text-align: left;
 	position: relative;
 margin-top: 15px;
-
-
 }
+
 .onoffswitch-checkbox {
     display: none;
 }
@@ -40,16 +39,18 @@ margin-top: 15px;
     box-sizing: border-box;
 }
 .onoffswitch-inner:before {
-    content: "ON";
-    padding-left: 10px;
+    content: "|";
+    padding-left: 15px;
     background-color: #34A7C1; color: #FFFFFF;
 }
+
 .onoffswitch-inner:after {
-    content: "OFF";
-    padding-right: 10px;
+    content: "O";
+    padding-right: 15px;
     background-color: #EEEEEE; color: #999999;
     text-align: right;
 }
+
 .onoffswitch-switch {
     display: block; width: 32px; margin: 0.5px;
     background: #FFFFFF;
@@ -65,14 +66,16 @@ margin-top: 15px;
     right: 0px; 
 }
 
-#fistLabel {
+#firstLabel, #secondLabel, #thirdLabel {
 padding: 30px;
 postion: relative;
+display: block;
+text-align: center;
+font-family: "Lato";
 }
 
 
-
-body,h1,h4,h5,h6 {font-family: "Lato", sans-serif
+body,h1, h3,h4,h5,h6 {font-family: Courier New;
 align: center;
 }
 
@@ -96,11 +99,23 @@ clear: left;
 }
 p {
 display: inline-block;
+font-family: Courier New;
+font-size: 18px;
 }
 #synDiv {
-border: solid;
+border: dashed;
 border-color: black;
-
+text-align: left;
+display: block;
+/* ---------------------------------------------------------
+* This is where I made it disappear 
+------------------------------------------------------------ */
+  margin: auto;
+    width: 50%;
+align: center;
+}
+textarea {
+display: none; 
 }
 #radioButtons {
 display: block;
@@ -111,6 +126,13 @@ text-decoration: none;
 .disappear{
 display: none;
 }
+#switch2 {
+margin-top: 15px;
+}
+.footnotes{
+display: none;
+}
+
 </style>
 <body>
 
@@ -142,28 +164,93 @@ display: none;
 	var sex = "on";
 
  $(document).ready(function(){
-
+//current
+ $("#DFWSwitch").click(function() {
+ console.log("working");
+	if  ($(this).val() === "on") {
+      $(this).val("off");
+      console.log(this);
+	   $("#FN1").text("");
+	   $("#FN2").text("");
+	   $("#aesthetic").text("Aesthetic: ")
+	  $("#phobia").text("Phobia: ");
+	  $("#sexuality").text("Sexuality: ");
+	   $(".footnotes").css("display", "none");
+	   
+   }
+	else  {
+      $(this).val("on");
+      console.log(this);
+	  $("#FN1").text("1");
+	  $("#FN2").text("2");
+	  $("#aesthetic").text("Opinion of tennis: ")
+	  $("#phobia").text("Addicted to: ");
+	  $("#sexuality").text("Prefers Subjects that are: ");
+	   $(".footnotes").css("display", "block");
+	   var adj = getDFWAdjective();
+	   var adj2 = getDFWAdjective();
+	   var noun1 = getDFWNoun();
+	   console.log(adj);
+	   $("#dfwAdj1").text(adj);
+	   $("#dfwAdj2").text(adj2);
+	   $("#dfwNoun1").text(noun1);
+	   
+	   //dfw words linking 
+		$("#dfwAdj1").attr({
+            "href" : "http://www.dictionary.com/browse/" +adj,
+            "title" : "word"
+        });
+		$("#dfwAdj2").attr({
+            "href" : "http://www.dictionary.com/browse/" +adj2,
+            "title" : "word"
+        });
+		$("#dfwNoun1").attr({
+            "href" : "http://www.dictionary.com/browse/" +noun1,
+            "title" : "word"
+        });
+   };
+ });
+ 
  $("#sexSwitch").click(function() {
  
 	if  ($(this).val() === "on") {
       $(this).val("off");
       console.log(this);
-	   $("#sexuality").addClass("disappear");
-	   $("#word6").addClass("disappear");
+	   $("#sexuality").text("Faith:");
+	   //$("#word6").addClass("disappear");
 	   $("#firstLabel").text("Mormon");
    }
 	else  {
       $(this).val("on");
       console.log(this);
-	  $("#sexuality").removeClass("disappear");
-	   $("#word6").removeClass("disappear");
-	   $("#firstLabel").text("Libertine");
+	  $("#sexuality").text("Sexuality:");
+	   //$("#word6").removeClass("disappear");
+	   $("#firstLabel").text("Secular");
+   };
+ });
+ 
+  $("#phobiaSwitch").click(function() {
+ 
+	if  ($(this).val() === "on") {
+      $(this).val("off");
+      console.log(this);
+	   $("#phobia").text("Has a phobia of:");
+	   //$("#word6").addClass("disappear");
+	   $("#secondLabel").text("Phobia");
+   }
+	else  {
+      $(this).val("on");
+      console.log(this);
+	  $("#phobia").text("Has a passion for:");
+	   //$("#word6").removeClass("disappear");
+	   $("#secondLabel").text("Passion");
    };
  });
  
 		
 		$("button").click(function(){
 		var name = getName();
+		var phobia = getNounObject().plural;
 		var adj1 = getAdjective();
 		var adj2 = getAdjective();
 		var adj3 = getAdjective();
@@ -204,8 +291,19 @@ display: none;
             "href" : "http://www.dictionary.com/browse/" +adj5,
             "title" : "word"
         });
+		$("#word7").text(phobia);
+		 $("#word7").attr({
+            "href" : "http://www.dictionary.com/browse/" +phobia,
+            "title" : "word"
+        });
 		
+		
+		console.log($("#synDiv").text());
+		var synopsis = $("#synDiv").text();
+		synopsis = synopsis.replace("  ", " ");
+		$("#charBox").val(synopsis);
     });
+		
 		
 });
 
@@ -214,37 +312,87 @@ display: none;
 
 <!-- Header -->
 <div class="w3-container w3-red w3-center w3-padding-128">
-  <h1 id = "#title" class="w3-margin w3-jumbo"> Fictive </h1>
+  <h1 id = "#title" class="w3-margin w3-jumbo"> <span title = "It Builds Characters">Person Factory </span> </h1>
+  <h3> It Builds Characters </h3>
 <div id="synDiv">
 <p>Name: </p> <p> <a class = "words" id = "word1"> Stellan </a> </p> <br>
-<p>Personality: </p> <p> <a class = "words" id = "word2">anguine </a> </p> <br>
+<p>Personality: </p> <p> <a class = "words" id = "word2">anguine</a></p><p><sup id="FN1"></sup> </p><br>
 <p>Look: </p> <p> <a class = "words" id = "word3"> hissing </a> </p> <br>
-<p>Aesthetic: </p> <p> <a class = "words" id = "word4"> coarsest </a> </p> <br>
-<p>Stance on other people: Feels </p> <p> <a class = "words" id = "word5"> undocked </a> </p> <p> towards other people.</p><br>
+<p id = "aesthetic">Aesthetic: </p> <p> <a class = "words" id = "word4"> coarsest </a> </p> <br>
+<p>Stance on other people: Feels </p> <p> <a class = "words" id = "word5"> undocked</a></p><p><sup id="FN2"></sup></p> <p> towards other people.</p><br>
 <p id = "sexuality">Sexuality: </p> <p> <a class = "words" id = "word6"> cheery </a> </p> <br>
+<p id = "phobia">Has a passion for: </p> <p> <a class = "words" id = "word7"> aardvarks </a> </p> <br>
 <!-- <p>Hobby: Sometimes likes to write when feeling super</p><br> -->
-
 </div>
 
+<textarea id ="charBox" rows = "9" cols = "70">
+Resume
+Knives pain you
+pills cause cramp
+acid stains you
+and rivers are damp
+gas smells awful
+nooses give
+guns aren't lawful
+you might as well live
+</textarea>
     <br>
 	<div id="btndiv">
 <button class="w3-btn w3-padding-16 w3-large w3-margin-top"  >More</button>
 <br>
 </div>
+
+<div id = "switches">
 <!-- gratuitous switch -->
 <div id= "switch1">
-<p style = "display: inline-block" id = "firstLabel"> Libertine </p>
+<p style = "display: inline-block" id = "firstLabel"> Secular </p>
       <!--  <label id = "fistLabel" for="sexSwitch" >Mormonism</label> -->
 <div class="onoffswitch">
     <input value ="on" type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="sexSwitch" checked>
     <label class="onoffswitch-label" for="sexSwitch">
+        <span class="onoffswitch-inner" id = "switch1Inner"></span>
+        <span class="onoffswitch-switch"></span>
+    </label>
+</div>
+</div>
+
+
+<!-- second gratuitous switch -->
+<div id= "switch2">
+<p id = "secondLabel"> Passion </p>
+      <!--  <label id = "fistLabel" for="sexSwitch" >Mormonism</label> -->
+<div class="onoffswitch">
+    <input value ="on" type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="phobiaSwitch" checked>
+    <label class="onoffswitch-label" for="phobiaSwitch" for= "sexSwitch">
+        <span class="onoffswitch-inner"></span>
+        <span class="onoffswitch-switch"></span>
+    </label>
+</div>
+</div>
+<div id= "switch3">
+<p id = "thirdLabel"> David Foster Wallace </p>
+      <!--  <label id = "fistLabel" for="sexSwitch" >Mormonism</label> -->
+<div class="onoffswitch">
+    <input value ="off" type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="DFWSwitch" >
+    <label class="onoffswitch-label" for="DFWSwitch">
+        <span class="onoffswitch-inner"></span>
+        <span class="onoffswitch-switch"></span>
+    </label>
+</div>
+</div>
+
+<div id= "switch4">
+<p id = "fourthLabel"> George R.R. Martin </p>
+      <!--  <label id = "fistLabel" for="sexSwitch" >Mormonism</label> -->
+<div class="onoffswitch">
+    <input value ="off" type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="GRRMSwitch" >
+    <label class="onoffswitch-label" for="GRRMSwitch">
         <span class="onoffswitch-inner"></span>
         <span class="onoffswitch-switch"></span>
     </label>
 </div>
 </div>
 </div>
-
 <!-- Footer -->
 <footer class="w3-container w3-padding-64 w3-center w3-opacity">
   <div class="w3-xlarge w3-padding-32">
@@ -254,7 +402,9 @@ display: none;
    <a href="#" class="w3-hover-text-grey"><i class="fa fa-tasks"></i></a>
    <a href="#" class="w3-hover-text-indigo"><i class="fa fa-tint"></i></a>
  </div>
- <p>Powered by <a href="http://www.w3schools.com/w3css/default.asp" target="_blank">Thanks to w3 and such </a></p>
+ <h4 class = "footnotes" > Endnotes </h4>
+ <p class = "footnotes" id = "footnote1">1. And this really did define their personality. It would often cause like </p><p> <a class="words" id="dfwAdj1"> <a></p> <p> nightmares. Some say that this is what caused their first flirtations with </p> <p><a class="words" id="dfwNoun1"></a></p><p>.</p>
+  <p class = "footnotes" id = "footnote2">2. Other members of Enfield academy would perfer to use the word </p><p><a class="words" id="dfwAdj2"> </a></p> <p>instead</p>
 </footer>
 
 <script>
